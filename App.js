@@ -1,55 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
-
-const AUTHORS = {
-  Me: "Me: ",
-  BOT: "BOT: "
-}
-
-function Message(props) {
-
-  return <p>{props.author}{props.text}</p>
-}
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import Chat from './Chat'
 
 function App() {
-  const [messageList, setMessageList] = React.useState([]);
-  const [inputValue, setInputValue] = React.useState('');
-
-  React.useEffect(() => {
-    if (messageList.length &&
-      messageList[messageList.length - 1].author !== AUTHORS.BOT) {
-      setTimeout(() => {
-        setMessageList(currentMessageList => ([...currentMessageList, { author: AUTHORS.BOT, text: "Сообщение от бота" }]));
-      }, 1500);
-    }
-  }, [messageList]);
-
-  const messageChange = (e) => {
-    setInputValue(e.target.value)
-  }
-  const handleMessageSubmit = (e) => {
-    e.preventDefault();
-    setMessageList(currentMessageList => ([...currentMessageList, { author: AUTHORS.Me, text: inputValue }]));
-    setInputValue('');
-  }
-
   return (
     <div className="App">
-      <div className="bordered">
-        {messageList.map((message, index) => (<Message author={message.author} key={index} text={message.text} />
-        ))}
-      </div>
-      <form className="app__form bordered" onSubmit={handleMessageSubmit}>
-        <input
-          required
-          className="bordered"
-          autoFocus
-          value={inputValue}
-          placeholder="Введите сообщение"
-          onChange={messageChange} />
-        <button>Отправить</button>
-      </form>
+      <List classname="app_sidebar" subheader="Список чатов">
+        <ListItem> Chat 1 </ListItem>
+        <ListItem> Chat 2 </ListItem>
+        <ListItem> Chat 3 </ListItem>
+      </List>
 
+      <div className="app_main">
+        <Chat />
+      </div>
     </div>
   );
 }

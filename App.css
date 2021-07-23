@@ -12,7 +12,24 @@
     animation: App-logo-spin infinite 20s linear;
   }
 }
-
+.App_upfield{
+  display: flex;
+  justify-content: space-around;
+}
+.App_chat{
+  flex-direction: column;
+}
+.app_user {
+text-decoration: none;
+}
+.app__form {
+  display: flex;
+}
+.App-button{
+  background-color: lightblue;
+  width: 100px;
+  height: 32px; 
+}
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
