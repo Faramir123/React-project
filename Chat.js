@@ -1,10 +1,16 @@
 import React from 'react';
+import { Redirect, useParams } from 'react-router';
 import Input from './Input';
+import Message from './Message';
 import usePrevious from './usePrevious';
 import AUTHORS from './constants';
-import Message from './Message';
+
 
 const Chat = (props) => {
+
+    const { getIsChatExists } = props;
+    const { chatId } = useParams();
+
     const [messageList, setMessageList] = React.useState([]);
 
     const timer = React.useRef(null);
@@ -33,7 +39,17 @@ const Chat = (props) => {
         ]));
     }
 
+    const isChatExists = React.useMemo(
+        () => getIsChatExists(chatId),
+        [getIsChatExists, chatId]
+    );
+
+    if (!isChatExists) {
+        return <Redirect to="/Chats" />
+    }
+
     return (
+
         <div className='chat'>
             {messageList.map((message, index) =>
             (<Message
@@ -41,9 +57,11 @@ const Chat = (props) => {
                 key={index}
                 text={message.text} />
             ))
-            };
+            }
             <Input onSubmit={handleMessageSubmit} />
         </div>
+
     )
 }
+
 export default Chat
