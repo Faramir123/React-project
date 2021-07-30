@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { Profiler } from 'react';
 import { Switch, Route } from 'react-router';
-
+import Profile from './profile/profile';
 import './App.css';
 import Home from './Home';
 import Chat from "./Chat";
@@ -29,7 +29,7 @@ export default function Routers(props) {
                 <Route path="/chats/:chatId" render={() => <Chat getIsChatExists={props.getIsChatExists} />} />
 
                 <Route path="/profile">
-                    <p>Profile page</p>
+                    <Profile />
                 </Route>
 
                 <Route>
