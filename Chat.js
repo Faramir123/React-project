@@ -2,22 +2,22 @@ import React from 'react';
 import { Redirect, useParams } from 'react-router';
 import Input from './Input';
 import Message from './Message';
-import usePrevious from './usePrevious';
+import usePrevious from './hooks/usePrevious';
 import AUTHORS from './constants';
+import { useDispatch, useSelector } from 'react-redux';
+import { addMessage } from './actions/actionMessage';
+import { useIsChatExsits } from './hooks/useIsChatExsist';
 
 
 const Chat = (props) => {
 
-    const { getIsChatExists } = props;
     const { chatId } = useParams();
 
-    const [messageList, setMessageList] = React.useState([]);
+    const messageList = useSelector(state => state.message[chatId] || []);
+    const dispatch = useDispatch();
 
-    const timer = React.useRef(null);
 
-    const prevMessageList = usePrevious(messageList);
-
-    React.useEffect(() => {
+    /* React.useEffect(() => {
         if (messageList.length &&
             messageList[messageList.length - 1].author !== AUTHORS.BOT) {
             setTimeout(() => {
@@ -25,24 +25,20 @@ const Chat = (props) => {
                     ([...currentMessageList, { author: AUTHORS.BOT, text: "Сообщение от бота" }]));
             }, 1500);
         }
-    }, [messageList]);
+    }, [messageList]); */
 
-    React.useEffect(() => {
-        return () => {
-            clearTimeout(timer.current);
-        }
-    }, []);
+
 
     const handleMessageSubmit = (newMessageText) => {
-        setMessageList(currentMessageList =>
-        ([...currentMessageList, { author: AUTHORS.Me, text: newMessageText }
-        ]));
+        dispatch(addMessage(chatId, {
+            id: `message${Date.now()}`,
+            author: AUTHORS.Me,
+            text: newMessageText
+        }))
     }
 
-    const isChatExists = React.useMemo(
-        () => getIsChatExists(chatId),
-        [getIsChatExists, chatId]
-    );
+
+    const isChatExists = useIsChatExsits({ chatId })
 
     if (!isChatExists) {
         return <Redirect to="/Chats" />
@@ -51,10 +47,10 @@ const Chat = (props) => {
     return (
 
         <div className='chat'>
-            {messageList.map((message, index) =>
+            {messageList.map((message) =>
             (<Message
                 author={message.author}
-                key={index}
+                key={message.id}
                 text={message.text} />
             ))
             }

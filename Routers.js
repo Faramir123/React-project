@@ -6,27 +6,18 @@ import Home from './Home';
 import Chat from "./Chat";
 import Chats from './Chats';
 
-export default function Routers(props) {
+export default function Routers() {
     return (
         <div>
             <Switch>
                 <Route path="/" exact render={() =>
                     <Home
-                        chats={props.chats}
-                        currentChat={props.currentChat}
-                        onCurrentChatChange={props.onCurrentChatChange}
+
                     />} />
 
-                <Route exact path="/chats" render={() =>
-                    <Chats
-                        chats={props.chats}
-                        currentChat={props.currentChat}
-                        onCurrentChatChange={props.onCurrentChatChange}
-                        getIsChatExists={props.getIsChatExists}
-                    />}
-                />
+                <Route exact path="/chats" component={Chats} />
 
-                <Route path="/chats/:chatId" render={() => <Chat getIsChatExists={props.getIsChatExists} />} />
+                <Route path="/chats/:chatId" component={Chat} />
 
                 <Route path="/profile">
                     <Profile />
