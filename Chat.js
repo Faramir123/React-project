@@ -5,36 +5,23 @@ import Message from './Message';
 import usePrevious from './hooks/usePrevious';
 import AUTHORS from './constants';
 import { useDispatch, useSelector } from 'react-redux';
-import { addMessage } from './actions/actionMessage';
+import { addMessage, botMessage } from './actions/actionMessage';
 import { useIsChatExsits } from './hooks/useIsChatExsist';
 
 
-const Chat = (props) => {
+const Chat = () => {
 
     const { chatId } = useParams();
 
     const messageList = useSelector(state => state.message[chatId] || []);
     const dispatch = useDispatch();
 
-
-    /* React.useEffect(() => {
-        if (messageList.length &&
-            messageList[messageList.length - 1].author !== AUTHORS.BOT) {
-            setTimeout(() => {
-                setMessageList(currentMessageList =>
-                    ([...currentMessageList, { author: AUTHORS.BOT, text: "Сообщение от бота" }]));
-            }, 1500);
-        }
-    }, [messageList]); */
-
-
-
     const handleMessageSubmit = (newMessageText) => {
-        dispatch(addMessage(chatId, {
+        dispatch(botMessage(chatId, {
             id: `message${Date.now()}`,
             author: AUTHORS.Me,
             text: newMessageText
-        }))
+        }));
     }
 
 
