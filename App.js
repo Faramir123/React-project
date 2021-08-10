@@ -11,6 +11,7 @@ function App() {
         <Link to="/">Home</Link>
         <Link to="/chats">Chats</Link>
         <Link to="/profile">Profile</Link>
+        <Link to="/news">News</Link>
       </div>
 
       <Routers />

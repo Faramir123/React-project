@@ -5,6 +5,7 @@ import './App.css';
 import Home from './Home';
 import Chat from "./Chat";
 import Chats from './Chats';
+import News from './News';
 
 export default function Routers() {
     return (
@@ -22,6 +23,8 @@ export default function Routers() {
                 <Route path="/profile">
                     <Profile />
                 </Route>
+
+                <Route path="/news" component={News} />
 
                 <Route>
                     <p>404: not found</p>

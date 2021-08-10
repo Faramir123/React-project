@@ -5,4 +5,6 @@ const AUTHORS = {
     BOT: "BOT: "
 }
 
-export default AUTHORS
+export default AUTHORS;
+
+export const API_URL = 'https://api.spaceflightnewsapi.net/v3/articles';
