@@ -16,9 +16,9 @@ export const setNewsList = (newsList) => ({
     payload: {
         newsList,
     },
-});
+})
 
-export const fetshNews = () => {
+export const fetchNews = () => {
     return (dispatch, getState) => {
         dispatch(setLoadingStatus());
 
@@ -47,7 +47,7 @@ export const fetchNewsByAxois = () => {
 
         try {
             const { data } = await transport.get(API_URL);
-
+            console.log('загрузили данные');
             dispatch(setNewsList(data));
             dispatch(setIdleStatus());
         }

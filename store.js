@@ -5,12 +5,13 @@ import messageReducer from './reducers/messages'
 import { persistReducer, persistStore } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 import thunk from 'redux-thunk'
-import newsReducer from './reducers/news'
+import newsReducer from './reducers/newss'
 
 
 const persistConfig = {
     key: 'root',
     storage,
+    blacklist: 'messages',
 }
 
 const rootReducer = combineReducers({

@@ -2,30 +2,35 @@ import React from 'react';
 import { Redirect, useParams } from 'react-router';
 import Input from './Input';
 import Message from './Message';
-import usePrevious from './hooks/usePrevious';
 import AUTHORS from './constants';
 import { useDispatch, useSelector } from 'react-redux';
-import { addMessage, botMessage } from './actions/actionMessage';
 import { useIsChatExsits } from './hooks/useIsChatExsist';
+import { botMessage, subscribeOnMessagesChangings } from './actions/actionMessage'
 
 
-const Chat = () => {
+const Chat = (props) => {
 
     const { chatId } = useParams();
+    const messageList = useSelector((state) => state.messages[chatId] || [])
 
-    const messageList = useSelector(state => state.message[chatId] || []);
+
     const dispatch = useDispatch();
+
+    React.useEffect(() => {
+        dispatch(subscribeOnMessagesChangings(chatId))
+    })
 
     const handleMessageSubmit = (newMessageText) => {
         dispatch(botMessage(chatId, {
             id: `message${Date.now()}`,
-            author: AUTHORS.Me,
-            text: newMessageText
-        }));
+            author: AUTHORS.ME,
+            text: newMessageText,
+        })
+        )
     }
 
 
-    const isChatExists = useIsChatExsits({ chatId })
+    const isChatExists = useIsChatExsits({ chatId });
 
     if (!isChatExists) {
         return <Redirect to="/Chats" />

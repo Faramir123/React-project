@@ -1,15 +1,15 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { fetchNewsByAxois, fetshNews, setNewsList } from './actions/news';
-import { NEWS_REQUEST_STATUS } from './reducers/news';
+import { fetchNews, fetchNewsByAxois, fetshNews, setNewsList } from './actions/news';
+import { NEWS_REQUEST_STATUS } from './reducers/newss';
 import { Button } from '@material-ui/core'
 
-export default function News(props) {
+export default function News() {
     const { status, list } = useSelector((state) => state.news);
     const dispatch = useDispatch();
 
-    const loadData = () => dispatch(fetshNews);
-    const loadDataByAxios = () => dispatch(fetchNewsByAxois)
+    const loadData = () => dispatch(fetchNews());
+    const loadDataByAxios = () => dispatch(fetchNewsByAxois())
     const clearData = () => dispatch(setNewsList([]));
 
     if (status == NEWS_REQUEST_STATUS.LOADING) {
@@ -25,7 +25,7 @@ export default function News(props) {
             <Button onClick={clearData}>Очистить данные</Button>
 
             {status !== NEWS_REQUEST_STATUS.ERROR ? (
-                <ol className="bordered">
+                <ol>
                     {list.map((newsItem) => (
                         <li key={newsItem.id}>
                             <p>{newsItem.title}</p>
