@@ -7,6 +7,8 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 In the project directory, you can run:
 
 ### `yarn start`
+before use command "yarn start" you should run command "yarn add'. This command install all dependency from package.json file. Use the directory "complete chat" and public. Directory that named "old code" consist errors in code, don't use this directory.
+
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
